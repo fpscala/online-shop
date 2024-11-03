@@ -2,7 +2,7 @@ import React from "react";
 
 import { Text, View } from "react-native";
 
-const Search = () => {
+const Category = () => {
   return (
     <View>
       <Text>Search</Text>
@@ -10,4 +10,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default Category;
