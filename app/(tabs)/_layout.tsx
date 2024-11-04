@@ -28,7 +28,7 @@ const TabIcon = ({ icon, color, name, focused }: ITabIconProps) => {
 const TabList = [
   { name: 'Home', icon: 'home', showInTab: true },
   { name: 'Category', icon: 'search1', showInTab: true },
-  { name: 'Wishlist', icon: 'heart', showInTab: true },
+  { name: 'Wishlist', icon: 'hearto', showInTab: true },
   { name: 'Cart', icon: 'shoppingcart', showInTab: false },
   { name: 'Profile', icon: 'user', showInTab: true },
 ];
@@ -40,10 +40,10 @@ const TabsLayout = () => {
         initialRouteName="Home"
         screenOptions={{
           tabBarShowLabel: false,
-          tabBarActiveTintColor: '#FFA001',
-          tabBarInactiveTintColor: '#CDCDE0',
+          tabBarActiveTintColor: '#0F9565',
+          tabBarInactiveTintColor: '#232533',
           tabBarStyle: {
-            backgroundColor: '#161622',
+            backgroundColor: '#FFFFFF',
             borderTopWidth: 0,
             position: 'absolute',
             left: 0,
@@ -51,7 +51,7 @@ const TabsLayout = () => {
             bottom: 0,
             borderTopColor: '#232533',
             height: 66,
-            shadowColor: 'white',
+            shadowColor: 'black',
             shadowOffset: { width: 0, height: 4 },
             shadowOpacity: 0.9, // Adjust for visibility
             shadowRadius: 20, // Higher radius for a softer look
@@ -76,7 +76,7 @@ const TabsLayout = () => {
           />
         ))}
       </Tabs>
-      <StatusBar backgroundColor="#161622" style="light" />
+      <StatusBar backgroundColor="#FFFFFF" style="light" />
     </>
   );
 };

@@ -25,15 +25,15 @@ const FormField = ({
   const [focused, setFocused] = React.useState(false);
   return (
     <View className={`space-y-2 ${otherStyles}`}>
-      <Text className="text-base font-pmedium text-gray-100">{title}</Text>
+      <Text className="text-base font-pmedium text-black">{title}</Text>
       <View
-        className={`w-full h-16 border-2 bg-black-100 ${focused ? "border-secondary" : "border-black-200"} px-4 py-2 rounded-2xl flex flex-row items-center`}
+        className={`w-full h-16 border-2 bg-black-100 ${focused ? "border-primary" : "border-gray-500"} px-4 py-2 rounded-2xl flex flex-row items-center`}
       >
         <TextInput
           value={value}
           onChangeText={handleChangeText}
           placeholder={placeholder}
-          placeholderTextColor="#7b7b8b"
+          placeholderTextColor="#B5B5B5"
           secureTextEntry={title === "Password" && !showPassword}
           className="flex-1 text-white font-psemibold text-base"
           onFocus={() => setFocused(true)}

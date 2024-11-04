@@ -12,7 +12,7 @@ const Welcome = () => {
   if (!loading && isLogged) return <Redirect href="/home" />;
 
   return (
-    <SafeAreaView className="bg-primary h-full">
+    <SafeAreaView className="bg-white h-full">
       {/*<Loader isLoading={loading} />*/}
 
       <ScrollView
@@ -26,7 +26,7 @@ const Welcome = () => {
           </View>
 
           <View className="relative mt-5">
-            <Text className="text-6xl text-secondary-200 font-bold text-center">Shoppe</Text>
+            <Text className="text-6xl text-primary-200 font-bold text-center">Shoppe</Text>
             <Image
               source={images.path}
               className="w-[136px] h-[15px] absolute -bottom-2 -right-8"

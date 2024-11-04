@@ -44,7 +44,7 @@ const FeaturedItem = ({ activeItem, item }: FeaturedItemsProps) => {
       duration={100}
     >
       <TouchableOpacity className="relative flex justify-center items-center" activeOpacity={0.7}>
-        <View className="w-56 h-80 rounded-[33px] my-5 overflow-hidden shadow-lg shadow-black/40 border-2 border-gray-500">
+        <View className="w-56 h-80 rounded-[33px] my-5 overflow-hidden shadow-lg shadow-black/40 border-2 border-gray-200 bg-white">
           <View className="flex-col flex">
             <Image
               source={images.thumbnail}
@@ -58,11 +58,11 @@ const FeaturedItem = ({ activeItem, item }: FeaturedItemsProps) => {
               <AntDesign name="heart" size={20} color="#CDCDE0" />
             </TouchableOpacity>
             <View className="px-5 h-[25%]">
-              <Text className="text-2xs text-white truncate">{item.title}</Text>
+              <Text className="text-2xs truncate">{item.title}</Text>
               <View className="my-2 flex justify-between">
                 <Text>
-                  <Text className="text-4sm font-bold text-white">$449</Text>{' '}
-                  <Text className="text-sm text-white line-through">$699</Text>
+                  <Text className="text-4sm font-bold">$449</Text>{' '}
+                  <Text className="text-sm line-through">$699</Text>
                 </Text>
               </View>
             </View>
