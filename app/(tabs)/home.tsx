@@ -4,10 +4,10 @@ import { FlatList, RefreshControl, SafeAreaView, Text, View } from 'react-native
 import SearchInput from '../../components/SearchInput';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { Link } from 'expo-router';
-import ProductCard from '../../components/ProductCard';
 import { products } from '../../constants/products';
 import { images } from '../../constants';
 import Featured from '../../components/Featured';
+import ProductItem from "../../components/ProductItem";
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -16,11 +16,10 @@ const Home = () => {
     <SafeAreaView className="bg-white py-6">
       <FlatList
         data={products}
-        numColumns={2}
         horizontal={false}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <ProductCard id={item.id} title={item.title} thumbnail={images.thumbnail} />
+          <ProductItem id={item.id} title={item.title} thumbnail={images.thumbnail} />
         )}
         ListHeaderComponent={() => (
           <View className="flex my-6 px-4 space-y-6">

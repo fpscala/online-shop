@@ -56,8 +56,8 @@ const TabsLayout = () => {
             shadowOpacity: 0.9, // Adjust for visibility
             shadowRadius: 20, // Higher radius for a softer look
             elevation: 20, // Higher value to make the shadow more visible
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 30,
           },
         }}
       >
@@ -76,7 +76,7 @@ const TabsLayout = () => {
           />
         ))}
       </Tabs>
-      <StatusBar backgroundColor="#FFFFFF" style="light" />
+      <StatusBar backgroundColor="#0F9565" style="light" />
     </>
   );
 };

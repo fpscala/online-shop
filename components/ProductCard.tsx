@@ -12,7 +12,7 @@ interface Props {
 const ProductCard = ({ id, title, thumbnail }: Props) => {
   return (
     <View className="flex flex-row px-2 w-1/2">
-      <View className="h-72 border-[1px] border-gray-200 bg-white rounded-3xl my-2 shadow-md w-full">
+      <View className="h-72 border-[1px] border-gray-200 rounded-3xl my-2 shadow-md w-full bg-primary">
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => router.push(`/products/${id}`)}
@@ -27,11 +27,11 @@ const ProductCard = ({ id, title, thumbnail }: Props) => {
               <AntDesign name="heart" size={20} color="black" />
             </TouchableOpacity>
             <View className="px-5 h-[25%]">
-              <Text className="text-2xs truncate">{title}</Text>
+              <Text className="text-2xs truncate text-white">{title}</Text>
               <View className="my-2 flex justify-between">
                 <Text>
-                  <Text className="text-4sm font-bold">$449</Text>{' '}
-                  <Text className="text-sm line-through">$699</Text>
+                  <Text className="text-4sm font-bold text-white">$449</Text>{' '}
+                  <Text className="text-sm line-through text-white">$699</Text>
                 </Text>
               </View>
             </View>
