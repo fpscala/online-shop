@@ -24,7 +24,7 @@ const ProductCard = ({ id, title, thumbnail }: Props) => {
               39% OFF
             </Text>
             <TouchableOpacity activeOpacity={0.7} className="absolute top-0 right-0 m-2 mr-3">
-              <AntDesign name="heart" size={20} color="black" />
+              <AntDesign name="hearto" size={20} color="black" />
             </TouchableOpacity>
             <View className="px-5 h-[25%]">
               <Text className="text-2xs truncate text-white">{title}</Text>

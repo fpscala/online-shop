@@ -7,6 +7,7 @@ import { IProduct } from '../models/products.interface';
 import type { ViewToken } from '@react-native/virtualized-lists';
 import { PointProp } from 'react-native/Libraries/Components/ScrollView/ScrollView';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { Link } from 'expo-router';
 
 interface FeaturedItemsProps {
   activeItem: string;
@@ -22,13 +23,13 @@ const zoomIn = {
     scale: 0.9,
   },
   1: {
-    scale: 1.1,
+    scale: 1.0,
   },
 };
 
 const zoomOut = {
   0: {
-    scale: 1.1,
+    scale: 1.0,
   },
   1: {
     scale: 0.9,
@@ -36,28 +37,25 @@ const zoomOut = {
 };
 
 const FeaturedItem = ({ activeItem, item }: FeaturedItemsProps) => {
+  const isActive = activeItem === item.id.toString();
   return (
     <Animatable.View
       className="mr-2"
-      animation={(activeItem === item.id.toString() ? zoomIn : zoomOut) as CustomAnimation}
+      animation={(isActive ? zoomIn : zoomOut) as CustomAnimation}
       duration={100}
     >
-      <TouchableOpacity className="relative flex justify-center items-center" activeOpacity={0.7}>
-        <View className="w-56 h-80 rounded-[33px] my-5 overflow-hidden shadow-lg shadow-black/40 border-2 border-gray-200 bg-primary">
+      <View className="relative flex justify-center items-center bg-white">
+        <View className="w-56 h-72 rounded-[33px] my-5 overflow-hidden pb-8">
           <View className="flex-col flex">
             <Image
               source={{ uri: item.thumbnail }}
               resizeMode="cover"
               className="w-full rounded-[33px] h-[75%]"
             />
-            <Text className="absolute top-0 left-2 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
-              39% OFF
-            </Text>
-            <TouchableOpacity activeOpacity={0.7} className="absolute top-0 right-0 m-2 mr-3">
-              <AntDesign name="heart" size={20} color="#CDCDE0" />
-            </TouchableOpacity>
             <View className="px-5 h-[25%]">
-              <Text className="text-2xs truncate text-white">{item.title}</Text>
+              <Link href={`/products/${item.id}`}>
+                <Text className="text-2xs text-white">{item.title}</Text>
+              </Link>
               <View className="my-2 flex justify-between">
                 <Text>
                   <Text className="text-4sm font-bold text-white">$449</Text>{' '}
@@ -66,14 +64,17 @@ const FeaturedItem = ({ activeItem, item }: FeaturedItemsProps) => {
               </View>
             </View>
           </View>
+          <View
+            className={`${isActive ? 'h-56' : 'h-48'} absolute bottom-4 left-2 w-52 -z-10 rounded-[33px] bg-primary shadow-md shadow-black`}
+          ></View>
         </View>
-      </TouchableOpacity>
+      </View>
     </Animatable.View>
   );
 };
 
 const Featured = ({ products }: FeaturedProps) => {
-  if (!products) return null;
+  if (!products || products.length === 0) return null;
   const [activeItem, setActiveItem] = useState(products[0].id.toString());
 
   function viewableItemsChanged(info: {
@@ -90,7 +91,7 @@ const Featured = ({ products }: FeaturedProps) => {
       data={products}
       horizontal
       keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }) => <FeaturedItem activeItem={activeItem} item={item} />}
+      renderItem={({ item }) => <FeaturedItem key={item.id} activeItem={activeItem} item={item} />}
       onViewableItemsChanged={(info) => viewableItemsChanged(info)}
       viewabilityConfig={{
         itemVisiblePercentThreshold: 110,

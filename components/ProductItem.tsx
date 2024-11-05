@@ -39,7 +39,7 @@ const ProductItem = ({ product }: Props) => {
             </Text>
           </View>
           <TouchableOpacity activeOpacity={0.7} className="absolute top-0 right-0 m-2 mr-3">
-            <AntDesign name="heart" size={20} color="black" />
+            <AntDesign name="hearto" size={20} color="black" />
           </TouchableOpacity>
         </View>
       </TouchableOpacity>
