@@ -1,26 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { FlatList, RefreshControl, SafeAreaView, Text, View } from 'react-native';
 import SearchInput from '../../components/SearchInput';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { Link } from 'expo-router';
-import { products } from '../../constants/products';
-import { images } from '../../constants';
 import Featured from '../../components/Featured';
-import ProductItem from "../../components/ProductItem";
+import ProductItem from '../../components/ProductItem';
+import { IProduct } from '../../models/products.interface';
+import Loader from '../../components/Loader';
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
+  const [loading, setIsLogged] = useState(true);
+  const [products, setProducts] = useState<IProduct[]>([]);
 
+  useEffect(() => {
+    fetch('https://dummyjson.com/products')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setProducts(data.products as IProduct[]);
+        } else {
+          setIsLogged(false);
+        }
+      })
+      .finally(() => {
+        setIsLogged(false);
+      });
+  }, []);
+
+  if (products.length === 0) return <Loader isLoading={loading} />;
   return (
     <SafeAreaView className="bg-white py-6">
+
       <FlatList
         data={products}
         horizontal={false}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <ProductItem id={item.id} title={item.title} thumbnail={images.thumbnail} />
-        )}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => <ProductItem product={item} />}
         ListHeaderComponent={() => (
           <View className="flex my-6 px-4 space-y-6">
             <View className="flex justify-between items-start flex-row mb-6">
@@ -38,7 +55,7 @@ const Home = () => {
             <SearchInput />
             <View className="w-full flex-1 pt-5 pb-8">
               <Text className="text-lg font-pregular mb-3">Featured.</Text>
-              <Featured products={products ?? []} />
+              {products && <Featured products={products} />}
             </View>
             <Text className="text-lg font-pregular">All Products</Text>
           </View>
