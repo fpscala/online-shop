@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as Animatable from 'react-native-animatable';
 import { CustomAnimation } from 'react-native-animatable';
 import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
@@ -75,7 +75,27 @@ const FeaturedItem = ({ activeItem, item }: FeaturedItemsProps) => {
 
 const Featured = ({ products }: FeaturedProps) => {
   if (!products || products.length === 0) return null;
-  const [activeItem, setActiveItem] = useState(products[0].id.toString());
+  const [activeItem, setActiveItem] = useState(products[0]?.id.toString());
+  const flatListRef = useRef<FlatList<IProduct>>(null);
+  useEffect(() => {
+    setInterval(() => {
+      setActiveItem((item) => {
+        let index = products.findIndex((product) => product.id.toString() === item);
+        if (index === products.length - 1) index = 0;
+        else index++;
+        scrollToIndex(index);
+        return products[index]?.id.toString();
+      });
+    }, 3000);
+  }, []);
+
+  const scrollToIndex = (index: number) => {
+    flatListRef.current?.scrollToIndex({
+      index,
+      animated: true,
+      viewPosition: 0.5, // Center the item in the view
+    });
+  };
 
   function viewableItemsChanged(info: {
     viewableItems: Array<ViewToken<IProduct>>;
@@ -89,12 +109,14 @@ const Featured = ({ products }: FeaturedProps) => {
   return (
     <FlatList
       data={products}
+      ref={flatListRef}
       horizontal
       keyExtractor={(item) => item.id.toString()}
+      overScrollMode={'always'}
       renderItem={({ item }) => <FeaturedItem key={item.id} activeItem={activeItem} item={item} />}
       onViewableItemsChanged={(info) => viewableItemsChanged(info)}
       viewabilityConfig={{
-        itemVisiblePercentThreshold: 110,
+        itemVisiblePercentThreshold: 150,
       }}
       contentOffset={{ x: 170 } as PointProp}
     />
