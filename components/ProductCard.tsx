@@ -2,6 +2,7 @@ import { Image, ImageSourcePropType, Text, TouchableOpacity, View } from 'react-
 
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { router } from 'expo-router';
+import {images} from "../constants";
 
 interface Props {
   id: string;
@@ -15,11 +16,11 @@ const ProductCard = ({ id, title, thumbnail }: Props) => {
       <View className="h-72 border-[1px] border-gray-200 rounded-3xl my-2 shadow-md w-full bg-primary">
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => router.push(`/products/${id}`)}
+          onPress={() => router.push(`/products/details/${id}`)}
           className="w-full h-full"
         >
           <View className="flex-col flex">
-            <Image source={thumbnail} resizeMode="cover" className="w-full rounded-2xl h-[75%]" />
+            <Image source={thumbnail} resizeMode="cover" defaultSource={images.shopify} className="w-full rounded-2xl h-[75%]" />
             <Text className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
               39% OFF
             </Text>

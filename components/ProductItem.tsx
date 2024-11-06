@@ -1,8 +1,9 @@
-import { Image, ImageSourcePropType, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { router } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { IProduct } from '../models/products.interface';
+import { images } from '../constants';
 
 interface Props {
   product: IProduct;
@@ -11,19 +12,20 @@ interface Props {
 const ProductItem = ({ product }: Props) => {
   const discountPrice = () => {
     if (product.discountPercentage <= 0) return product.price;
-    return (100 - product.discountPercentage) / 100 * product.price;
+    return ((100 - product.discountPercentage) / 100) * product.price;
   };
 
   return (
     <View className="flex flex-row py-3 px-4 h-48">
       <TouchableOpacity
         activeOpacity={0.7}
-        onPress={() => router.push(`/products/${product.id}`)}
+        onPress={() => router.push(`/products/details/${product.id}`)}
         className="w-1/3 h-full"
       >
         <View className="flex-col flex">
           <Image
             source={{ uri: product.thumbnail }}
+            defaultSource={images.shopify}
             resizeMode="cover"
             className="w-full h-full rounded-2xl"
           />
@@ -45,20 +47,21 @@ const ProductItem = ({ product }: Props) => {
       </TouchableOpacity>
       <View className="flex flex-col h-full py-4 pl-4 pr-2 w-2/3">
         <View className="w-full h-[60%]">
-          <Text className="text-xl font-psemibold">{product.title}</Text>
+          <Link href={`/products/details/${product.id}`}>
+            <Text className="text-xl font-psemibold">{product.title}</Text>
+          </Link>
         </View>
         <View className="w-full h-[40%] flex flex-row justify-end">
           <View className="flex-1">
             {product.discountPercentage > 0 && (
               <Text className="text-sm line-through">${product.price}</Text>
             )}
-            <Text className="text-xl font-psemibold">
-              ${discountPrice().toFixed(2)}
-            </Text>
+            <Text className="text-xl font-psemibold">${discountPrice().toFixed(2)}</Text>
           </View>
           <View className="my-1 flex-1 h-full items-end justify-center font-psemibold">
             <TouchableOpacity
               activeOpacity={0.7}
+              onPress={() => router.push(`/products/details/${product.id}`)}
               className="w-28 h-full p-2 -mt-2 text-center rounded-full justify-center items-center bg-primary-200 flex-row"
             >
               <AntDesign name="shoppingcart" size={22} color="black" />

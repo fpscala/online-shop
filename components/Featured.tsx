@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import * as Animatable from 'react-native-animatable';
 import { CustomAnimation } from 'react-native-animatable';
-import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Text, View, VirtualizedList } from 'react-native';
 
 import { IProduct } from '../models/products.interface';
 import type { ViewToken } from '@react-native/virtualized-lists';
 import { PointProp } from 'react-native/Libraries/Components/ScrollView/ScrollView';
-import AntDesign from '@expo/vector-icons/AntDesign';
 import { Link } from 'expo-router';
+import { images } from '../constants';
 
 interface FeaturedItemsProps {
   activeItem: string;
@@ -42,19 +42,20 @@ const FeaturedItem = ({ activeItem, item }: FeaturedItemsProps) => {
     <Animatable.View
       className="mr-2"
       animation={(isActive ? zoomIn : zoomOut) as CustomAnimation}
-      duration={100}
+      duration={300}
     >
       <View className="relative flex justify-center items-center bg-white">
-        <View className="w-56 h-72 rounded-[33px] my-5 overflow-hidden pb-8">
+        <View className="w-56 h-80 rounded-[33px] mb-5 overflow-hidden pb-8">
           <View className="flex-col flex">
             <Image
               source={{ uri: item.thumbnail }}
+              defaultSource={images.shopify}
               resizeMode="cover"
               className="w-full rounded-[33px] h-[75%]"
             />
-            <View className="px-5 h-[25%]">
-              <Link href={`/products/${item.id}`}>
-                <Text className="text-2xs text-white">{item.title}</Text>
+            <View className="px-5 h-[25%] -mt-6">
+              <Link href={`/products/details/${item.id}`}>
+                <Text className="text-xl text-white">{item.title}</Text>
               </Link>
               <View className="my-2 flex justify-between">
                 <Text>
@@ -65,7 +66,7 @@ const FeaturedItem = ({ activeItem, item }: FeaturedItemsProps) => {
             </View>
           </View>
           <View
-            className={`${isActive ? 'h-56' : 'h-48'} absolute bottom-4 left-2 w-52 -z-10 rounded-[33px] bg-primary shadow-md shadow-black`}
+            className={`${isActive ? 'h-60' : 'h-52'} absolute bottom-4 left-2 w-52 -z-10 rounded-[33px] bg-primary shadow-md shadow-black`}
           ></View>
         </View>
       </View>
@@ -76,24 +77,22 @@ const FeaturedItem = ({ activeItem, item }: FeaturedItemsProps) => {
 const Featured = ({ products }: FeaturedProps) => {
   if (!products || products.length === 0) return null;
   const [activeItem, setActiveItem] = useState(products[0]?.id.toString());
-  const flatListRef = useRef<FlatList<IProduct>>(null);
+  const flatListRef = useRef<VirtualizedList<IProduct>>(null);
   useEffect(() => {
     setInterval(() => {
       setActiveItem((item) => {
         let index = products.findIndex((product) => product.id.toString() === item);
-        if (index === products.length - 1) index = 0;
-        else index++;
+        index === products.length - 1 ? (index = 0) : index++;
         scrollToIndex(index);
         return products[index]?.id.toString();
       });
-    }, 3000);
+    }, 5000);
   }, []);
 
   const scrollToIndex = (index: number) => {
     flatListRef.current?.scrollToIndex({
       index,
       animated: true,
-      viewPosition: 0.5, // Center the item in the view
     });
   };
 
@@ -107,13 +106,15 @@ const Featured = ({ products }: FeaturedProps) => {
   }
 
   return (
-    <FlatList
+    <VirtualizedList<IProduct>
       data={products}
       ref={flatListRef}
       horizontal
+      getItemCount={(data) => data.length}
       keyExtractor={(item) => item.id.toString()}
       overScrollMode={'always'}
       renderItem={({ item }) => <FeaturedItem key={item.id} activeItem={activeItem} item={item} />}
+      getItem={(data, index) => data[index]}
       onViewableItemsChanged={(info) => viewableItemsChanged(info)}
       viewabilityConfig={{
         itemVisiblePercentThreshold: 150,

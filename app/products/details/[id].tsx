@@ -3,9 +3,9 @@ import { useLocalSearchParams } from 'expo-router';
 
 import { Image, SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { IProduct } from '../../models/products.interface';
+import { IProduct } from '../../../models/products.interface';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import CustomButton from '../../components/CustomButton';
+import CustomButton from '../../../components/CustomButton';
 
 const ProductDetails = () => {
   const { id } = useLocalSearchParams();
@@ -38,7 +38,7 @@ const ProductDetails = () => {
     <>
       <SafeAreaView className="flex flex-1 items-center justify-center bg-white">
         <View className="w-full h-1/3 bg-primary">
-          <Image source={{ uri: product.thumbnail }} className="w-full h-full" resizeMode="cover" />
+          <Image source={{ uri: product.thumbnail }} className="w-full h-full" resizeMode="contain" />
         </View>
         <View className="w-full h-2/3 -my-7 bg-white rounded-t-[30px]">
           <View className="flex flex-row">

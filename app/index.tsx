@@ -5,6 +5,7 @@ import { images } from '../constants';
 import Loader from '../components/Loader';
 import CustomButton from '../components/CustomButton';
 import { StatusBar } from 'expo-status-bar';
+import Logo from '../components/Logo';
 
 const Welcome = () => {
   const { loading, isLogged } = useGlobalContext();
@@ -21,20 +22,11 @@ const Welcome = () => {
         }}
       >
         <View className="w-full flex justify-center items-center h-full px-4">
-          <View className="flex-row items-center rounded-full bg-gray-800 px-2 py-8">
-            <Image source={images.logo2} className="w-[130px] h-[84px]" resizeMode="contain" />
-          </View>
+          <Image source={images.shopify} className="w-[130px] h-[130px]" resizeMode="contain" />
 
-          <View className="relative mt-5">
-            <Text className="text-6xl text-primary-200 font-bold text-center">Shoppe</Text>
-            <Image
-              source={images.path}
-              className="w-[136px] h-[15px] absolute -bottom-2 -right-8"
-              resizeMode="contain"
-            />
-          </View>
+          <Logo />
 
-          <Text className="text-sm font-pregular text-gray-100 mt-7 text-center">
+          <Text className="text-sm font-pregular mt-7 text-center">
             View your favourite products and shop with ease
           </Text>
 
