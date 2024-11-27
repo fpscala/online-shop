@@ -1,0 +1,34 @@
+{
+  "cli": {
+    "version": ">= 12.6.2",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal",
+      "env": {
+        "ANDROID_HOME": "/home/fpscala/Android/Sdk",
+        "ANDROID_SDK_ROOT": "/home/fpscala/Android/Sdk"
+      }
+    },
+    "preview2": {
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "env": {
+        "ANDROID_HOME": "/home/fpscala/Android/Sdk",
+        "ANDROID_SDK_ROOT": "/home/fpscala/Android/Sdk"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

@@ -13,7 +13,8 @@
       "backgroundColor": "#161622"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "uz.scala.onlineshop"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,6 +29,11 @@
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "78aecc71-5012-444e-a97f-b61bcb6ce3a8"
+      }
+    }
   }
 }
